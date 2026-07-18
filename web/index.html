@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>飞牛图书 · 家庭读书数据中心</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ========== 登录页面 ========== -->
+    <div id="loginPage" class="login-page">
+        <div class="login-bg-decor">
+            <div class="decor-circle decor-circle-1"></div>
+            <div class="decor-circle decor-circle-2"></div>
+            <div class="decor-circle decor-circle-3"></div>
+        </div>
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                </div>
+                <h1 class="login-title">飞牛图书</h1>
+                <p class="login-subtitle">家庭读书数据中心</p>
+            </div>
+            <div class="login-tabs">
+                <button class="login-tab active" data-tab="login">登录</button>
+                <button class="login-tab" data-tab="register">注册</button>
+            </div>
+            <form id="loginForm" class="login-form active">
+                <div class="form-group">
+                    <label class="form-label"><i class="fa-solid fa-user"></i> 用户名</label>
+                    <input type="text" id="loginUsername" class="form-input" placeholder="请输入用户名" autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fa-solid fa-lock"></i> 密码</label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="请输入密码" autocomplete="current-password">
+                </div>
+                <div class="login-hint">
+                    <i class="fa-solid fa-circle-info"></i>
+                    默认账号：admin / admin123
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fa-solid fa-right-to-bracket"></i> 登 录
+                </button>
+            </form>
+            <form id="registerForm" class="login-form">
+                <div class="form-group">
+                    <label class="form-label"><i class="fa-solid fa-user"></i> 用户名</label>
+                    <input type="text" id="regUsername" class="form-input" placeholder="至少3个字符" autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fa-solid fa-lock"></i> 密码</label>
+                    <input type="password" id="regPassword" class="form-input" placeholder="至少6个字符" autocomplete="new-password">
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fa-solid fa-signature"></i> 昵称</label>
+                    <input type="text" id="regNickname" class="form-input" placeholder="可选">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fa-solid fa-user-plus"></i> 注 册
+                </button>
+            </form>
+        </div>
+        <p class="login-footer">© 2026 飞牛图书 · 让阅读成为家庭习惯</p>
+    </div>
+
+    <!-- ========== 主应用界面 ========== -->
+    <div id="appPage" class="app-page" style="display:none;">
+        <!-- 顶部栏 -->
+        <header class="app-header">
+            <div class="header-left">
+                <button id="sidebarToggle" class="icon-btn" aria-label="切换菜单">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="header-brand">
+                    <i class="fa-solid fa-book-open-reader brand-icon"></i>
+                    <div class="brand-text">
+                        <span class="brand-name">飞牛图书</span>
+                        <span class="brand-sub">家庭读书数据中心</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-user" id="headerUser">
+                    <img id="headerAvatar" class="user-avatar" src="" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="user-avatar user-avatar-fallback" style="display:none;"><i class="fa-solid fa-user"></i></div>
+                    <span class="user-name" id="headerUserName">用户</span>
+                </div>
+                <button id="logoutBtn" class="btn btn-ghost btn-sm" title="登出">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span class="hide-mobile">登出</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="app-body">
+            <!-- 侧边栏 -->
+            <aside class="sidebar" id="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="#library" class="nav-item active" data-route="library">
+                        <i class="fa-solid fa-book nav-icon"></i>
+                        <span class="nav-text">图书库</span>
+                    </a>
+                    <a href="#progress" class="nav-item" data-route="progress">
+                        <i class="fa-solid fa-chart-line nav-icon"></i>
+                        <span class="nav-text">阅读进度</span>
+                    </a>
+                    <a href="#notes" class="nav-item" data-route="notes">
+                        <i class="fa-solid fa-pen-to-square nav-icon"></i>
+                        <span class="nav-text">笔记管理</span>
+                    </a>
+                    <a href="#categories" class="nav-item" data-route="categories">
+                        <i class="fa-solid fa-folder-tree nav-icon"></i>
+                        <span class="nav-text">分类管理</span>
+                    </a>
+                    <a href="#settings" class="nav-item" data-route="settings">
+                        <i class="fa-solid fa-gear nav-icon"></i>
+                        <span class="nav-text">用户设置</span>
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <div class="sidebar-stat">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span id="sidebarBookCount">0 本藏书</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 主内容区 -->
+            <main class="main-content" id="mainContent">
+                <!-- 动态渲染内容 -->
+            </main>
+        </div>
+    </div>
+
+    <!-- ========== 通用弹窗容器 ========== -->
+    <div id="modalContainer"></div>
+
+    <!-- ========== Toast 提示 ========== -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- ========== 加载遮罩 ========== -->
+    <div id="loadingOverlay" class="loading-overlay" style="display:none;">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+            <p class="loading-text" id="loadingText">加载中...</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
