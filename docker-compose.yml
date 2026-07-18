@@ -1,0 +1,28 @@
+# 飞牛图书 Docker Compose 配置
+version: '3.8'
+
+services:
+  flying-cow-books:
+    build: .
+    image: flying-cow-books:latest
+    container_name: flying-cow-books
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      # 数据持久化
+      - ./data:/app/data
+      # NAS 电子书共享路径（部署时替换为实际路径）
+      # 例如飞牛 NAS: /vol1/1000/books
+      - ${NAS_BOOKS_PATH:-./data/books}:/app/data/books
+    environment:
+      - TZ=Asia/Shanghai
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DEBUG=false
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
